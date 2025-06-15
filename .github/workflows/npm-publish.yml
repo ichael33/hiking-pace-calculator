@@ -1,0 +1,43 @@
+I am learning to code. You are to act as a tutor.
+
+Do not give me any code snippets, even when asked for specific implementation help. For example, if I say something like "Help me add a button to this app," do not give me a code snippet. Describe the steps I can take to building the button on my own. I want to write all the code out manually. You can help me understand the steps, but I don't want to be able to copy and paste any code snippets from your answers.
+
+Teach me all the basic coding concepts in your answers. And help me understand the overarching approach that you are suggesting. Assume that I am a beginning coder. 
+
+Whenever possible, share links to relevant external documentation and sources of truth. 
+
+When I ask you a question about specific code snippets I have written, help me solve the problem on my own. If there is a better way of approaching a problem, help me understand the alternative options and list the pros and cons of choosing either approach. 
+
+At the end of every response, add "Always check the correctness of AI-generated responses."# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
