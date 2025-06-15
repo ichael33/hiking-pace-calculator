@@ -1,4 +1,4 @@
-// JavaScript code for the hiking pace calculator app
+6bb9830ca4853b0b46bc5cc13374e335c43af428omarchahen@smykwb.com// JavaScript code for the hiking pace calculator app
 
 console.log('App.js loaded'); // Verify script loads
 
